@@ -1,0 +1,163 @@
+﻿@using DragonBlog.Utilities
+@using PagedList.Core
+@using PagedList.Core.Mvc
+@model IPagedList<DragonBlog.Models.Post>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- Hero Section-->
+<section style="background: url(/Images/hero-bg.jpg); background-size: cover; background-position: center" class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <h1>Blog for Programming - A simple and straightforward blog to find interesting facts and information on some interesting topics</h1>
+            </div>
+        </div><a href=".intro" class="continue link-scroll"><i class="fa fa-long-arrow-down"></i> Scroll Down</a>
+    </div>
+</section>
+
+<!-- Intro Section-->
+<section class="intro">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2 class="h3">Some great info here!</h2>
+                <p class="text-big">
+                    I'm personally all about writing facts and not fiction. I look to actually write facts about topics that I find either important or interesting.
+                    If your looking for a quick read for some fascinating information feel free to stop by and catch a quick read. If you read a post that you like and are looking for a follow
+                    up to it, leave a comment and I will take it under consideration!
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="featured-posts no-padding-top">
+    <div class="container">
+        <!-- Post-->
+        @{
+            var i = 1;
+            foreach (var post in Model)
+            {
+
+                if (i % 2 != 0)
+                {
+                    <div class="row d-flex align-items-stretch">
+                        <div class="text col-lg-7">
+                            <div class="text-inner d-flex align-items-center">
+                                <div class="content">
+                                    <header class="post-header">
+                                        <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.Id">
+                                            <h2 class="h4">@post.Title</h2>
+                                        </a>
+                                    </header>
+                                    <p>@Html.Raw(post.Abstract)</p>
+                                    <footer class="post-footer d-flex align-items-center">
+                                        <a href="#" class="author d-flex align-items-center flex-wrap">
+                                            <div class="title"><span>Jackson Holliday</span></div>
+                                        </a>
+                                        <div class="date"><i class="icon-clock"></i>@post.Created.ToString("dd MMM yyyy")</div>
+                                        <div class="comments"><i class="icon-comment"></i>@post.Comments.Count</div>
+                                    </footer>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="image col-lg-5"><img src="@ImageHelper.DecodeImage(post.Image, post.FileName)" class="img-fluid" /></div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row d-flex align-items-stretch">
+                        <div class="image col-lg-5"><img src="@ImageHelper.DecodeImage(post.Image, post.FileName)"></div>
+                        <div class="text col-lg-7">
+                            <div class="text-inner d-flex align-items-center">
+                                <div class="content">
+                                    <header class="post-header">
+                                        <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.Id">
+                                            <h2 class="h4">@post.Title</h2>
+                                        </a>
+                                    </header>
+                                    <p>@Html.Raw(post.Abstract)</p>
+                                    <footer class="post-footer d-flex align-items-center">
+                                        <a href="#" class="author d-flex align-items-center flex-wrap">
+                                            <div class="title"><span>Jackson Holliday</span></div>
+                                        </a>
+                                        <div class="date"><i class="icon-clock"></i>@post.Created.ToString("dd MMM yyyy")</div>
+                                        <div class="comments"><i class="icon-comment"></i>@post.Comments.Count</div>
+                                    </footer>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                i++;
+            }
+        }
+        <br />
+        @*@using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new {  @class= "form" }))
+        {
+            <div class="controls controls-row search-row">
+                <input id="searchStr" name="searchStr" class="input-block-level" type="text" placeholder="Search" />
+                <button id="searchStr" name="searchStr" class="btn btn-success" type="submit">
+                    <i class="icon-search"></i>
+                </button>
+            </div>
+        }
+        <br />*@
+        <!-- Pagination -->
+        @*<nav aria-label="Page navigation example">
+            <ul class="pagination pagination-template d-flex justify-content-center">
+                <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+                <li class="page-item"><a href="#" class="page-link active">1</a></li>
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+            </ul>
+        </nav>*@
+        <div class="row">
+            <div class="col">
+                <pager class="pager-container" list="@Model" options="@PagedListRenderOptions.Bootstrap4Full" asp-action="Index" asp-controller="Home" asp-route-page="page" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Section-->
+<section class="gallery no-padding">
+    <div class="row">
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+            <div class="item">
+                <a href="~/Images/gallery-1.jpg" data-fancybox="gallery" class="image">
+                    <img src="~/Images//gallery-1.jpg" alt="..." class="img-fluid">
+                    <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
+                </a>
+            </div>
+        </div>
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+            <div class="item">
+                <a href="~/Images/gallery-2.jpg" data-fancybox="gallery" class="image">
+                    <img src="~/Images//gallery-2.jpg" alt="..." class="img-fluid">
+                    <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
+                </a>
+            </div>
+        </div>
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+            <div class="item">
+                <a href="~/Images/gallery-3.jpg" data-fancybox="gallery" class="image">
+                    <img src="~/Images//gallery-3.jpg" alt="..." class="img-fluid">
+                    <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
+                </a>
+            </div>
+        </div>
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+            <div class="item">
+                <a href="~/Images/gallery-4.jpg" data-fancybox="gallery" class="image">
+                    <img src="~/Images//gallery-4.jpg" alt="..." class="img-fluid">
+                    <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

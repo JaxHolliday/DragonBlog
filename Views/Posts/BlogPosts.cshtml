@@ -1,0 +1,73 @@
+﻿@model IEnumerable<DragonBlog.Models.Post>
+
+@{
+    ViewData["Title"] = "BlogPosts";
+}
+
+
+<div class="container-fluid">
+    <h2>Blog Posts</h2>
+
+    <p>
+        <a asp-action="Create" asp-route-id="@ViewData["BlogId"]" class="btn btn-primary">Create New Post</a>
+    </p>
+
+    <table id="dt" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Blog)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Abstract)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Content)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Created)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Blog.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Abstract)
+                    </td>
+                    <td>
+                        @Html.Raw(item.Content)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsPublished)
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <p>
+        <a asp-action="Create" asp-route-id="@ViewData["BlogId"]" class="btn btn-primary btn-sm">Create New Post</a>
+        <a asp-action="Index" asp-controller="Blogs" class="btn btn-primary btn-sm">Back to Blogs list</a>
+    </p>
+</div>

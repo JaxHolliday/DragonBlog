@@ -1,0 +1,116 @@
+﻿@using DragonBlog.Utilities
+@model DragonBlog.Models.Post
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="container">
+    <div class="row">
+        <!-- Latest Posts -->
+        <main class="post col-md-12">
+            <div class="container">
+                <div class="post-single">
+                    <div class="row">
+                        <div class="col">
+                            <div class="post-thumbnail"><img src="@ImageHelper.DecodeImage(Model.Image, Model.FileName)" alt="..." class="img-fluid mx-auto d-block" style="height:500px; width: 1000px;"></div>
+                        </div>
+                    </div>
+                    <div class="post-details">
+                        <div class="post-meta d-flex justify-content-between">
+                        </div>
+                        <h1>@Model.Title</h1>
+                        <div class="post-footer d-flex align-items-center flex-column flex-sm-row">
+                            <a href="#" class="author d-flex align-items-center flex-wrap">
+                                <div class="title">Jackson Holliday</div>
+                            </a>
+                            <div class="d-flex align-items-center flex-wrap">
+                                <div class="date"><i class="icon-clock"></i>@Model.Created.ToString("dd MMM yyyy")</div>
+                                <div class="comments meta-last"><i class="icon-comment"></i>@Model.Comments.Count</div>
+                            </div>
+                        </div>
+                        <div class="post-body">
+                            <p class="lead"></p>
+                            @Html.Raw(Model.Content)
+                        </div>
+                        <br />
+
+
+                        <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row">
+                            <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-outline-dark">
+                                <div class="text">
+                                    <strong class="text-primary">Return to Index </strong>
+                                    <br />
+                                    <h6></h6>
+                                </div>
+                            </a>
+                            @*<a href="#" class="btn btn-outline-dark">
+                                <div class="text">
+                                    <strong class="text-primary">Next Post </strong>
+                                    <br />
+                                    <h6></h6>
+                                </div>                                                               
+                            </a>*@
+                        </div>
+                        <br />
+
+                        <div class="post-comments">
+                            <header>
+                                <h3 class="h6">Post Comments<span class="no-of-comments">(@Model.Comments.Count)</span></h3>
+                            </header>
+
+                            @foreach (var comment in Model.Comments)
+                            {
+
+                                <div class="">
+                                    <div class="comment-header d-flex justify-content-between">
+                                        <div class="user d-flex align-items-center">
+                                            <div>
+                                                <strong>
+                                                    @comment.Author.FirstName
+                                                    @comment.Author.LastName
+                                                </strong>
+                                                <span>@comment.Created.Date.ToString("MMM dd") </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="comment-body">
+                                        <p>@comment.Content</p>
+                                    </div>
+                                </div>
+
+
+                            }
+                        </div>
+                        <div class="add-comment col-md-6">
+                            <header>
+                                <h3 class="h6">Leave a reply</h3>
+                            </header>
+
+                            @*If and only if the user is logged in will we show them this add comment form*@
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <form asp-controller="Comments" asp-action="Create" class="commenting-form">
+                                    @Html.Hidden("PostId", Model.Id)
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <textarea name="Content" placeholder="Type your comment" class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <button type="submit" class="btn btn-secondary">Submit Comment</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            }
+                            @*Collecting user comment / posting to the comments controller and HttpPost create action *@
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

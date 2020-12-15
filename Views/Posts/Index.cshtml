@@ -1,0 +1,88 @@
+﻿@using DragonBlog.Utilities
+@model IEnumerable<DragonBlog.Models.Post>
+
+@{
+    ViewData["Title"] = "Index";
+    var imageHelper = new ImageHelper();
+}
+
+
+
+<div class="container-fluid">
+    <h1>Posts</h1>
+    <p>
+        <a asp-action="Create" asp-route-id="@ViewData["BlogId"]" class="btn btn-primary">Create New Post</a>
+    </p>
+    <table id="dt" class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Abstract)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Content)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Created)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Update)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsPublished)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Blog)
+                </th>
+                <th>
+                    Links
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (item.Image != null)
+                        {
+                            <img style="width:180px; height:180px" src="@imageHelper.GetImage(item)" />
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Abstract)
+                    </td>
+                    <td>
+                        @Html.Raw(item.Content)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Update)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsPublished)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BlogId)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
