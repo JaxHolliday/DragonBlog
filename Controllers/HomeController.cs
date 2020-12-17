@@ -35,8 +35,10 @@ namespace DragonBlog.Controllers
             int pageNumber = (page ?? 1);
 
 
-            var model = _context.Post.Include(p => p.Blog);
-            return View(model.OrderBy(m => m.Created).ToPagedList(pageNumber, pageSize));
+            //var model = _context.Post.Include(p => p.Blog);
+            //var listPosts = _context.Post.AsQueryable(); 
+            //return View(listPosts.OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize));
+            return View(blogList.ToPagedList(pageNumber, pageSize));
         }
 
         public IQueryable<Post> IndexSearch(string searchStr)

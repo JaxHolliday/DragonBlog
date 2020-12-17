@@ -106,16 +106,7 @@
             </div>
         }
         <br />*@
-        <!-- Pagination -->
-        @*<nav aria-label="Page navigation example">
-            <ul class="pagination pagination-template d-flex justify-content-center">
-                <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
-                <li class="page-item"><a href="#" class="page-link active">1</a></li>
-                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
-            </ul>
-        </nav>*@
+        @*@Html.PagedListRenderOptions(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }));*@
         <div class="row">
             <div class="col">
                 <pager class="pager-container" list="@Model" options="@PagedListRenderOptions.Bootstrap4Full" asp-action="Index" asp-controller="Home" asp-route-page="page" />
