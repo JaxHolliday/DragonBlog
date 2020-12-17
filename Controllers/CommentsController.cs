@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DragonBlog.Data;
 using DragonBlog.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DragonBlog.Controllers
 {
@@ -23,6 +24,7 @@ namespace DragonBlog.Controllers
            
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Comments
         public async Task<IActionResult> Index()
         {
@@ -30,6 +32,7 @@ namespace DragonBlog.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         // GET: Comments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -50,6 +53,7 @@ namespace DragonBlog.Controllers
             return View(comment);
         }
 
+        [Authorize]
         // GET: Comments/Create
         public IActionResult Create()
         {
@@ -58,6 +62,7 @@ namespace DragonBlog.Controllers
             return View();
         }
 
+        [Authorize]
         // POST: Comments/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

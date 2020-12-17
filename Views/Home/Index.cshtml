@@ -96,7 +96,7 @@
             }
         }
         <br />
-        @*@using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new {  @class= "form" }))
+        @*@using (Html.BeginForm("Index", "Posts", FormMethod.Get, htmlAttributes: new {  @class= "form" }))
         {
             <div class="controls controls-row search-row">
                 <input id="searchStr" name="searchStr" class="input-block-level" type="text" placeholder="Search" />
@@ -104,9 +104,8 @@
                     <i class="icon-search"></i>
                 </button>
             </div>
-        }
-        <br />*@
-        @*@Html.PagedListRenderOptions(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }));*@
+        }*@
+        <br />
         <div class="row">
             <div class="col">
                 <pager class="pager-container" list="@Model" options="@PagedListRenderOptions.Bootstrap4Full" asp-action="Index" asp-controller="Home" asp-route-page="page" />

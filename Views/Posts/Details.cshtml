@@ -58,7 +58,7 @@
 
                         <div class="post-comments">
                             <header>
-                                <h3 class="h6">Post Comments<span class="no-of-comments">(@Model.Comments.Count)</span></h3>
+                                <h2 class="h6">Post Comments<span class="no-of-comments">(@Model.Comments.Count)</span></h2>
                             </header>
 
                             @foreach (var comment in Model.Comments)
@@ -76,6 +76,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <br />
                                     <div class="comment-body">
                                         <p>@comment.Content</p>
                                     </div>
@@ -84,6 +85,7 @@
 
                             }
                         </div>
+                        <br />
                         <div class="add-comment col-md-6">
                             <header>
                                 <h3 class="h6">Leave a reply</h3>
@@ -99,7 +101,7 @@
                                             <textarea name="Content" placeholder="Type your comment" class="form-control"></textarea>
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <button type="submit" class="btn btn-secondary">Submit Comment</button>
+                                            <button type="submit" class="btn btn-dark">Submit Comment</button>
                                         </div>
                                     </div>
                                 </form>

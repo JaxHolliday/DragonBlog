@@ -26,7 +26,8 @@ namespace DragonBlog.Controllers
             _context = context;
         }
 
-         //GET: Posts
+        [Authorize]
+        //GET: Posts
         public async Task<IActionResult> Index()
         {
             var model = _context.Post.Include(p => p.Blog);            
@@ -53,7 +54,7 @@ namespace DragonBlog.Controllers
             var blogPosts = await _context.Post.Where(p => p.BlogId == id).ToListAsync();
             return View(blogPosts);
         }
-
+        [Authorize]
         // GET: Posts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -103,9 +104,9 @@ namespace DragonBlog.Controllers
            
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Posts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        
+        // To protect from overposting attacks, enable the specific properties you want to bind to         
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BlogId,Title,Abstract,Content,IsPublished")] Post post, IFormFile image)
@@ -136,6 +137,7 @@ namespace DragonBlog.Controllers
             return View(post);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Posts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -153,6 +155,7 @@ namespace DragonBlog.Controllers
             return View(post);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Posts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -203,6 +206,7 @@ namespace DragonBlog.Controllers
             return View(post);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Posts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -222,6 +226,7 @@ namespace DragonBlog.Controllers
             return View(post);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Posts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

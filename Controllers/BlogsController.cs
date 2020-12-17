@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DragonBlog.Controllers
 {
+    [Authorize]
     public class BlogsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,12 +21,14 @@ namespace DragonBlog.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         // GET: Blogs
         public async Task<IActionResult> Index()
         {
             return View(await _context.Blog.ToListAsync());
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         // GET: Blogs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -43,9 +46,9 @@ namespace DragonBlog.Controllers
 
             return View(blog);
         }
+
         [Authorize(Roles = "Admin")]
         // GET: Blogs/Create
-
         public IActionResult Create()
         {
             return View();
@@ -66,7 +69,7 @@ namespace DragonBlog.Controllers
             }
             return View(blog);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Blogs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -82,7 +85,7 @@ namespace DragonBlog.Controllers
             }
             return View(blog);
         }
-
+        [Authorize(Roles = "Admin")]
         // POST: Blogs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -117,7 +120,7 @@ namespace DragonBlog.Controllers
             }
             return View(blog);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Blogs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -135,7 +138,7 @@ namespace DragonBlog.Controllers
 
             return View(blog);
         }
-
+        [Authorize(Roles = "Admin")]
         // POST: Blogs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
