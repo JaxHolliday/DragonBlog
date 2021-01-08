@@ -26,7 +26,7 @@ namespace DragonBlog.Controllers
             _context = context;
         }
 
-        [Authorize]
+        
         //GET: Posts
         public async Task<IActionResult> Index()
         {
@@ -54,7 +54,7 @@ namespace DragonBlog.Controllers
             var blogPosts = await _context.Post.Where(p => p.BlogId == id).ToListAsync();
             return View(blogPosts);
         }
-        [Authorize]
+        
         // GET: Posts/Details/5
         public async Task<IActionResult> Details(int? id)
         {

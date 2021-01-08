@@ -21,14 +21,14 @@ namespace DragonBlog.Controllers
             _context = context;
         }
 
-        [Authorize(Roles = "Admin, Moderator")]
+        
         // GET: Blogs
         public async Task<IActionResult> Index()
         {
             return View(await _context.Blog.ToListAsync());
         }
 
-        [Authorize(Roles = "Admin, Moderator")]
+        
         // GET: Blogs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
